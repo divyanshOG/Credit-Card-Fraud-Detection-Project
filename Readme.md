@@ -6,11 +6,11 @@ To create a web application that can detect fraudulent credit card transactions 
 ***
 
 ### Team Members & Roles
-* **Yadav:** ML & Backend Lead
-* **Dhruv:** Data & Backend
-* **Shreya:** Backend & DevOps
-* **Gutka:** Frontend & DevOps
-* **Dwivedi:** Frontend & ML
+* **Divyansh Dwivedi:** Frontend & ML
+* **Divyansh Yadav:** ML & Backend
+* **Dhruv Bhardwaj:** Data & Backend
+* **Shreya Gupta:** Backend & DevOps
+* **Srishti Gupta:** Frontend & DevOps
 
 ***
 
@@ -30,49 +30,49 @@ To create a web application that can detect fraudulent credit card transactions 
 
 ### Project Roadmap
 
-#### **Phase 1: Data Acquisition & Preprocessing (Dhruv, Yadav, Dwivedi)**
-* **(Dhruv) Download Dataset:** Use the Kaggle API to download the "Credit Card Data" dataset.
-* **(Yadav) Load Data:** Load the CSV file into a Pandas DataFrame in a Python environment (like VS Code).
-* **(Dhruv) Initial Exploration:** Check the data's structure, types, and look for missing values.
-* **(Dhruv) Data Cleaning:** Clean the data. For example, remove the '£' symbol from the 'Amount' column and convert it to a numeric type.
-* **(Yadav) Feature Engineering:** Create new features (e.g., time since last transaction, international transactions).
-* **(Dwivedi) Data Encoding:** Convert categorical features into a numerical format using one-hot encoding.
-* **(Yadav) Address Imbalance:** Use SMOTE to balance the dataset.
-* **(Yadav, Dhruv, Dwivedi) Final Data Prep:** Ensure the dataset is clean, balanced, and ready for model training.
+#### **Phase 1: Data Acquisition & Preprocessing (Dhruv Bhardwaj, Divyansh Yadav, Divyansh Dwivedi)**
+* **(Dhruv Bhardwaj) Download Dataset:** Use the Kaggle API to download the "Credit Card Data" dataset.
+* **(Divyansh Yadav) Load Data:** Load the CSV file into a Pandas DataFrame in a Python environment (like VS Code).
+* **(Dhruv Bhardwaj) Initial Exploration:** Check the data's structure, types, and look for missing values.
+* **(Dhruv Bhardwaj) Data Cleaning:** Clean the data. For example, remove the '£' symbol from the 'Amount' column and convert it to a numeric type.
+* **(Divyansh Yadav) Feature Engineering:** Create new features (e.g., time since last transaction, international transactions).
+* **(Divyansh Dwivedi) Data Encoding:** Convert categorical features into a numerical format using one-hot encoding.
+* **(Divyansh Yadav) Address Imbalance:** Use SMOTE to balance the dataset.
+* **(Divyansh Yadav, Dhruv Bhardwaj, Divyansh Dwivedi) Final Data Prep:** Ensure the dataset is clean, balanced, and ready for model training.
 
 <br>
 
-#### **Phase 2: Model Building & Training (Yadav, Dhruv, Dwivedi)**
-* **(Yadav) Split Data:** Split the dataset into training and testing sets.
-* **(Yadav) Select Models:** Use Logistic Regression and Random Forest.
-* **(Yadav) Train Models:** Train both models on the training data.
-* **(Dwivedi) Model Evaluation:** Make predictions, calculate metrics (F1-score, AUC-ROC), and analyze which model performs better. Dwivedi will also create visualizations of the results.
-* **(Yadav, Dhruv) Hyperparameter Tuning:** Fine-tune the best model to achieve a score above 0.8.
+#### **Phase 2: Model Building & Training (Divyansh Yadav, Dhruv Bhardwaj, Divyansh Dwivedi)**
+* **(Divyansh Yadav) Split Data:** Split the dataset into training and testing sets.
+* **(Divyansh Yadav) Select Models:** Use Logistic Regression and Random Forest.
+* **(Divyansh Yadav) Train Models:** Train both models on the training data.
+* **(Divyansh Dwivedi) Model Evaluation:** Make predictions, calculate metrics (F1-score, AUC-ROC), and analyze which model performs better. Divyansh Dwivedi will also create visualizations of the results.
+* **(Divyansh Yadav, Dhruv Bhardwaj) Hyperparameter Tuning:** Fine-tune the best model to achieve a score above 0.8.
 
 <br>
 
-#### **Phase 3: Backend API & Database (Dhruv, Shreya, Yadav)**
-* **(Dhruv) Database Setup:** Set up a SQL database.
-* **(Shreya) Backend Environment:** Set up the Python backend with Flask.
-* **(Shreya) API Endpoint:** Create an API endpoint for predictions.
-* **(Yadav) Model Integration:** Integrate the final model into the backend API.
-* **(Shreya) API Logic:** Write the code to process data, call the model, and return the result.
+#### **Phase 3: Backend API & Database (Dhruv Bhardwaj, Shreya Gupta, Divyansh Yadav)**
+* **(Dhruv Bhardwaj) Database Setup:** Set up a SQL database.
+* **(Shreya Gupta) Backend Environment:** Set up the Python backend with Flask.
+* **(Shreya Gupta) API Endpoint:** Create an API endpoint for predictions.
+* **(Divyansh Yadav) Model Integration:** Integrate the final model into the backend API.
+* **(Shreya Gupta) API Logic:** Write the code to process data, call the model, and return the result.
 
 <br>
 
-#### **Phase 4: Frontend & User Interface (Dwivedi, Gutka, Shreya)**
-* **(Dwivedi) Frontend Structure:** Create the web page with HTML.
-* **(Dwivedi) Frontend Styling:** Use CSS to style the page.
-* **(Gutka) Frontend Interactivity:** Use JavaScript to handle user input.
-* **(Gutka) API Communication:** Write JavaScript to send data to the API and receive responses.
-* **(Dwivedi) Display Results:** Program the frontend to display the prediction dynamically.
-* **(Shreya) Frontend and Backend Integration:** Ensure the connection between the two is working.
+#### **Phase 4: Frontend & User Interface (Divyansh Dwivedi, Srishti Gupta, Shreya Gupta)**
+* **(Divyansh Dwivedi) Frontend Structure:** Create the web page with HTML.
+* **(Divyansh Dwivedi) Frontend Styling:** Use CSS to style the page.
+* **(Srishti Gupta) Frontend Interactivity:** Use JavaScript to handle user input.
+* **(Srishti Gupta) API Communication:** Write JavaScript to send data to the API and receive responses.
+* **(Divyansh Dwivedi) Display Results:** Program the frontend to display the prediction dynamically.
+* **(Shreya Gupta) Frontend and Backend Integration:** Ensure the connection between the two is working.
 
 <br>
 
-#### **Phase 5: DevOps & Deployment (Shreya, Gutka)**
-* **(Shreya) Containerization:** Use Docker to containerize the backend and frontend.
-* **(Shreya) Cloud Setup:** Set up an account on AWS or Google Cloud.
-* **(Shreya) Deployment:** Deploy the Docker containers to the cloud.
-* **(Gutka) Testing:** Perform end-to-end testing of the live application.
-* **(Shreya) Final Presentation:** Prepare a presentation of the entire project.
+#### **Phase 5: DevOps & Deployment (Shreya Gupta, Srishti Gupta)**
+* **(Shreya Gupta) Containerization:** Use Docker to containerize the backend and frontend.
+* **(Shreya Gupta) Cloud Setup:** Set up an account on AWS or Google Cloud.
+* **(Shreya Gupta) Deployment:** Deploy the Docker containers to the cloud.
+* **(Srishti Gupta) Testing:** Perform end-to-end testing of the live application.
+* **(Shreya Gupta) Final Presentation:** Prepare a presentation of the entire project.
