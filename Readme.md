@@ -6,10 +6,10 @@ To create a web application that can detect fraudulent credit card transactions 
 ***
 
 ### Team Members & Roles
-* **Divyansh Dwivedi:** Frontend & ML
 * **Divyansh Yadav:** ML & Backend
+* **Divyansh Dwivedi:** Backend & ML
 * **Dhruv Bhardwaj:** Data & Backend
-* **Shreya Gupta:** Backend & DevOps
+* **Shreya Gupta:** Frontend & DevOps
 * **Srishti Gupta:** Frontend & DevOps
 
 ***
