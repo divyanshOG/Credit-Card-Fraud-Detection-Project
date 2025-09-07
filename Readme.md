@@ -53,20 +53,20 @@ To create a web application that can detect fraudulent credit card transactions 
 
 #### **Phase 3: Backend API & Database (Dhruv Bhardwaj, Shreya Gupta, Divyansh Yadav)**
 * **(Dhruv Bhardwaj) Database Setup:** Set up a SQL database.
-* **(Shreya Gupta) Backend Environment:** Set up the Python backend with Flask.
-* **(Shreya Gupta) API Endpoint:** Create an API endpoint for predictions.
+* **(Divyansh Dwivedi) Backend Environment:** Set up the Python backend with Flask.
+* **(Divyansh Dwivedi) API Endpoint:** Create an API endpoint for predictions.
 * **(Divyansh Yadav) Model Integration:** Integrate the final model into the backend API.
-* **(Shreya Gupta) API Logic:** Write the code to process data, call the model, and return the result.
+* **(Divyansh Dwivedi) API Logic:** Write the code to process data, call the model, and return the result.
 
 <br>
 
 #### **Phase 4: Frontend & User Interface (Divyansh Dwivedi, Srishti Gupta, Shreya Gupta)**
-* **(Divyansh Dwivedi) Frontend Structure:** Create the web page with HTML.
-* **(Divyansh Dwivedi) Frontend Styling:** Use CSS to style the page.
+* **(Shreya Gupta) Frontend Structure:** Create the web page with HTML.
+* **(Shreya Gupta) Frontend Styling:** Use CSS to style the page.
 * **(Srishti Gupta) Frontend Interactivity:** Use JavaScript to handle user input.
 * **(Srishti Gupta) API Communication:** Write JavaScript to send data to the API and receive responses.
-* **(Divyansh Dwivedi) Display Results:** Program the frontend to display the prediction dynamically.
-* **(Shreya Gupta) Frontend and Backend Integration:** Ensure the connection between the two is working.
+* **(Shreya Gupta) Display Results:** Program the frontend to display the prediction dynamically.
+* **(Divyansh Dwivedi) Frontend and Backend Integration:** Ensure the connection between the two is working.
 
 <br>
 
@@ -75,4 +75,4 @@ To create a web application that can detect fraudulent credit card transactions 
 * **(Shreya Gupta) Cloud Setup:** Set up an account on AWS or Google Cloud.
 * **(Shreya Gupta) Deployment:** Deploy the Docker containers to the cloud.
 * **(Srishti Gupta) Testing:** Perform end-to-end testing of the live application.
-* **(Shreya Gupta) Final Presentation:** Prepare a presentation of the entire project.
+* **(Srishti Gupta) Final Presentation:** Prepare a presentation of the entire project.
