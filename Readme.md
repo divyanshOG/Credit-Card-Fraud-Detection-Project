@@ -1,7 +1,7 @@
 # Project: Credit Card Fraud Detection System
 
 ### Project Goal
-To create a web application that can detect fraudulent credit card transactions with an F1-score and AUC-ROC score of over 0.8.
+To create a web application that can detect fraudulent credit card transactions with an F1-score and AUC-ROC score of over 0.75.
 
 ***
 
