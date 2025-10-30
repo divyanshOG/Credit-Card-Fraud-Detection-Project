@@ -1,0 +1,55 @@
+{
+    "final_model_columns": [
+        "Amount",
+        "Age",
+        "is_international",
+        "transaction_frequency",
+        "Type of Card_Visa",
+        "Entry Mode_PIN",
+        "Entry Mode_Tap",
+        "Type of Transaction_Online",
+        "Type of Transaction_POS",
+        "Merchant Group_Electronics",
+        "Merchant Group_Entertainment",
+        "Merchant Group_Fashion",
+        "Merchant Group_Food",
+        "Merchant Group_Gaming",
+        "Merchant Group_Products",
+        "Merchant Group_Restaurant",
+        "Merchant Group_Services",
+        "Merchant Group_Subscription",
+        "Gender_M",
+        "Bank_Barlcays",
+        "Bank_HSBC",
+        "Bank_Halifax",
+        "Bank_Lloyds",
+        "Bank_Metro",
+        "Bank_Monzo",
+        "Bank_RBS",
+        "Day of Week_Thursday",
+        "Day of Week_Tuesday",
+        "Day of Week_Wednesday",
+        "amount_bins_medium_amount",
+        "amount_bins_high_amount",
+        "amount_bins_very_high_amount",
+        "shipping_mismatch_1"
+    ],
+    "scaled_numerical_cols": [
+        "Amount",
+        "Age",
+        "transaction_frequency"
+    ],
+    "amount_bin_edges": [
+        5.0,
+        103.75,
+        202.5,
+        301.25,
+        400.0
+    ],
+    "amount_bin_labels": [
+        "low_amount",
+        "medium_amount",
+        "high_amount",
+        "very_high_amount"
+    ]
+}

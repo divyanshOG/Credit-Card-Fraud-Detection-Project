@@ -47,7 +47,7 @@ To create a web application that can detect fraudulent credit card transactions 
 * **(Divyansh Yadav) Select Models:** Use Logistic Regression and Random Forest.
 * **(Divyansh Yadav) Train Models:** Train both models on the training data.
 * **(Divyansh Dwivedi) Model Evaluation:** Make predictions, calculate metrics (F1-score, AUC-ROC), and analyze which model performs better. Divyansh Dwivedi will also create visualizations of the results.
-* **(Divyansh Yadav, Dhruv Bhardwaj) Hyperparameter Tuning:** Fine-tune the best model to achieve a score above 0.8.
+* **(Divyansh Yadav, Dhruv Bhardwaj) Hyperparameter Tuning:** Fine-tune the best model to achieve a score above 0.75.
 
 <br>
 
