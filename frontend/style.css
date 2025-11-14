@@ -1,0 +1,118 @@
+/* Basic styling for the entire page */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container for the form */
+.container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 24px 32px;
+    width: 100%;
+    max-width: 600px;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+h3 {
+    color: #333;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 8px;
+    margin-top: 24px;
+}
+
+/* Style the form layout */
+#fraud-form {
+    display: grid;
+    /* Create a two-column layout */
+    grid-template-columns: 1fr 1fr; 
+    /* Space between form fields */
+    gap: 20px; 
+}
+
+/* Style each form field block */
+#fraud-form div {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Make labels clear and bold */
+label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #555;
+    font-size: 14px;
+}
+
+/* Style the input fields and dropdowns */
+input[type="number"],
+input[type="text"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+    font-size: 15px;
+}
+
+/* Make the button span both columns */
+button[type="submit"] {
+    grid-column: 1 / -1; 
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 10px;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Style the results area */
+#result {
+    margin-top: 20px;
+    padding: 16px;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    display: none; /* Hide it until we have a result */
+}
+
+#prediction-text {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+}
+
+#probability-score {
+    font-size: 16px;
+    color: #666;
+    margin: 4px 0 0 0;
+}
+
+/* Classes we will add with JavaScript to color the result */
+.prediction-fraud {
+    color: #d9534f; /* Red */
+}
+
+.prediction-legitimate {
+    color: #5cb85c; /* Green */
+}

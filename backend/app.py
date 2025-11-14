@@ -1,22 +1,23 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import joblib
 import pandas as pd
 import numpy as np
 import json
-import sqlite3 # Import the database library
+import sqlite3
 
 # --- 1. Initialize Flask App ---
 app = Flask(__name__)
+CORS(app)  # Enable Cross-Origin Resource Sharing
 
-# --- Database Setup ---
-DB_NAME = '../transactions.db' # The database file will be saved in your main project folder
+# --- 2. Database Setup ---
+DB_NAME = '../transactions.db' # The database file
 
 def init_db():
     """Creates the database table if it doesn't exist."""
     try:
         conn = sqlite3.connect(DB_NAME)
         cursor = conn.cursor()
-        # This is the SQL schema we designed earlier
         cursor.execute('''
         CREATE TABLE IF NOT EXISTS transactions (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -34,20 +35,20 @@ def init_db():
         print("✅ Database table created successfully.")
     except Exception as e:
         print(f"❌ Error creating database: {str(e)}")
-# --- End of DB Setup ---
 
-
-# --- 2. Load All Assets ---
+# --- 3. Load All Assets ---
 try:
+    # Load the model and metadata (NO SCALER)
     model = joblib.load('../fraud_detection_model.joblib')
     
     with open('../api_metadata.json', 'r') as f:
         metadata = json.load(f)
     
+    # Get our "rules" from the metadata file
     MODEL_COLUMNS = metadata['final_model_columns']
     AMOUNT_BINS = metadata['amount_bin_edges']
     AMOUNT_LABELS = metadata['amount_bin_labels']
-    OPTIMAL_THRESHOLD = 0.6500
+    OPTIMAL_THRESHOLD = 0.6500 # Your champion threshold
 
     print("✅ Model and metadata loaded successfully!")
     
@@ -59,19 +60,20 @@ except FileNotFoundError:
     model = None
     metadata = None
 
-# --- 3. Preprocessing Function ---
+# --- 4. Preprocessing Function (CORRECTED) ---
 def preprocess_input(input_data):
     """
     Takes the raw JSON input from the frontend and prepares it
     into the exact DataFrame format the model was trained on.
     """
     
+    # Create a single-row DataFrame from the input JSON
     df = pd.DataFrame([input_data])
     
-    # Feature Engineering
+    # --- Feature Engineering (must match notebook) ---
     df['is_international'] = (df['Country of Transaction'] != df['Country of Residence']).astype(int)
     df['shipping_mismatch'] = (df['Shipping Address'] != df['Country of Residence']).astype(int)
-    df['transaction_frequency'] = 1 
+    df['transaction_frequency'] = 1 # Default for a new transaction
     
     df['amount_bins'] = pd.cut(
         df['Amount'], 
@@ -80,27 +82,33 @@ def preprocess_input(input_data):
         include_lowest=True
     )
     
-    # One-Hot Encoding & Column Alignment
+    # --- One-Hot Encoding & Column Alignment ---
+    
+    # Create an empty DataFrame with all model columns, filled with 0s
     final_df = pd.DataFrame(columns=MODEL_COLUMNS)
     final_df.loc[0] = 0
     
-    numerical_cols = ['Amount', 'Age', 'transaction_frequency']
+    # (FIXED) Fill in the numerical values, INCLUDING 'is_international'
+    numerical_cols = ['Amount', 'Age', 'transaction_frequency', 'is_international']
     for col in numerical_cols:
         if col in df.columns:
             final_df[col] = df[col]
             
-    for col in df.columns:
-        if col in ['Type of Card', 'Entry Mode', 'Type of Transaction', 'Merchant Group', 
-                   'Gender', 'Bank', 'Day of Week', 'amount_bins', 'shipping_mismatch', 
-                   'is_international']:
-            
-            one_hot_col = f"{col}_{df[col].iloc[0]}"
-            if one_hot_col in final_df.columns:
-                final_df[one_hot_col] = 1
+    # (FIXED) Create the one-hot columns, REMOVING 'is_international'
+    categorical_inputs = ['Type of Card', 'Entry Mode', 'Type of Transaction', 'Merchant Group', 
+                          'Gender', 'Bank', 'Day of Week', 'amount_bins', 'shipping_mismatch']
+    
+    for col in categorical_inputs:
+        value = df[col].iloc[0]
+        one_hot_col = f"{col}_{value}"
+        if one_hot_col in final_df.columns:
+            final_df[one_hot_col] = 1
 
+    # --- NO SCALING STEP ---
+    
     return final_df
 
-# --- 4. API Endpoints ---
+# --- 5. API Endpoints ---
 @app.route('/', methods=['GET'])
 def hello():
     return "Hello, world! The fraud detection API is running and all models are loaded."
@@ -112,6 +120,17 @@ def predict_fraud():
 
     try:
         input_data = request.get_json()
+
+        # Input validation
+        required_keys = [
+            'Amount', 'Age', 'Type of Card', 'Entry Mode', 'Type of Transaction',
+            'Merchant Group', 'Bank', 'Day of Week', 'Gender', 
+            'Country of Transaction', 'Country of Residence', 'Shipping Address'
+        ]
+        missing_keys = [key for key in required_keys if key not in input_data]
+        if missing_keys:
+            return jsonify({'error': f'Missing input data for: {", ".join(missing_keys)}'}), 400
+        
         processed_data = preprocess_input(input_data)
         
         # Make a prediction
@@ -120,7 +139,7 @@ def predict_fraud():
         
         prediction_text = 'Fraudulent' if is_fraudulent else 'Legitimate'
         
-        # --- NEW: Save to Database ---
+        # --- Save to Database ---
         try:
             conn = sqlite3.connect(DB_NAME)
             cursor = conn.cursor()
@@ -151,6 +170,6 @@ def predict_fraud():
         print(f"❌ Error during prediction: {str(e)}")
         return jsonify({'error': f'An error occurred: {str(e)}'}), 400
 
-# --- 5. Run the App ---
+# --- 6. Run the App ---
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
