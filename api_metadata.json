@@ -32,7 +32,8 @@
         "amount_bins_medium_amount",
         "amount_bins_high_amount",
         "amount_bins_very_high_amount",
-        "shipping_mismatch_1"
+        "shipping_mismatch_1",
+        "age_amount_risk_1"
     ],
     "scaled_numerical_cols": [
         "Amount",
@@ -41,9 +42,9 @@
     ],
     "amount_bin_edges": [
         5.0,
-        103.75,
-        202.5,
-        301.25,
+        17.0,
+        30.0,
+        208.0,
         400.0
     ],
     "amount_bin_labels": [
