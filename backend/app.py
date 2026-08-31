@@ -56,37 +56,28 @@ except FileNotFoundError:
     print("❌ Missing model/scaler/metadata files.")
     model, scaler, metadata = None, None, None
 
-# --- 4. Preprocessing Function (FIXED) ---
+# --- 4. Preprocessing Function (UPDATED) ---
 def preprocess_input(input_data):
-    # Normalize strings (e.g., "visa " -> "Visa")
     normalized_data = {}
     
-    # Map Title Case back to the specific casing your model expects
+    # 1. Dictionary mapping for exact column casing from training
     acronym_fixes = {
-        "Pos": "POS",
-        "Pin": "PIN",
-        "Cvc": "CVC",
-        "Usa": "USA",
-        "Uae": "UAE",
-        "Mastercard": "MasterCard" 
+        "Pos": "POS", "Pin": "PIN", "Cvc": "CVC", 
+        "Usa": "USA", "Uae": "UAE", "Mastercard": "MasterCard", 
+        "Atm": "ATM", "Hsbc": "HSBC"
     }
 
     for key, value in input_data.items():
         if isinstance(value, str):
-            # First, apply standard Title Case (e.g., "pos" -> "Pos")
             val = value.strip().title()
-            
-            # Then, fix specific acronyms if they exist in our map
-            if val in acronym_fixes:
-                val = acronym_fixes[val]
-                
+            val = acronym_fixes.get(val, val)
             normalized_data[key] = val
         else:
             normalized_data[key] = value
 
     df = pd.DataFrame([normalized_data])
 
-    # --- Feature engineering ---
+    # 2. Feature engineering
     country_trans = df.get('Country of Transaction', 'Unknown')
     country_res = df.get('Country of Residence', 'Unknown')
     shipping = df.get('Shipping Address', 'Unknown')
@@ -95,25 +86,26 @@ def preprocess_input(input_data):
     df['shipping_mismatch'] = (shipping != country_res).astype(int)
     df['transaction_frequency'] = 1
     
-    # Amount binning
+    # 3. Robust Amount Binning (prevents amount_bins_nan for values outside train bounds)
+    extended_bins = AMOUNT_BINS.copy()
+    extended_bins[0] = -np.inf
+    extended_bins[-1] = np.inf
+
     df['amount_bins'] = pd.cut(
         df['Amount'], 
-        bins=AMOUNT_BINS, 
+        bins=extended_bins, 
         labels=AMOUNT_LABELS, 
         include_lowest=True
     )
     
-    # Risk feature
     df['age_amount_risk'] = np.where(
         (df['Age'] < 20) & (df['amount_bins'].isin(['high_amount', 'very_high_amount'])), 
         1, 0
     )
 
-    # --- Column alignment ---
     final_df = pd.DataFrame(columns=MODEL_COLUMNS)
     final_df.loc[0] = 0
 
-    # Numerical columns
     numerical_map = {
         'Amount': 'Amount',
         'Age': 'Age',
@@ -126,26 +118,30 @@ def preprocess_input(input_data):
         if input_name in df.columns and col_name in final_df.columns:
             final_df[col_name] = df[input_name]
 
-    # Categorical columns
     categorical_cols = ['Type of Card', 'Entry Mode', 'Type of Transaction', 'Merchant Group', 
-                        'Gender', 'Bank', 'Day of Week', 'amount_bins']
+                        'Gender', 'Bank', 'amount_bins']
     
+    # 4. Direct One-Hot Matching
     for col in categorical_cols:
         if col in df.columns:
             value = df[col].iloc[0]
-            # This matches pandas get_dummies format: "Original Column_Value"
+            if pd.isna(value):
+                continue
+
             one_hot_col = f"{col}_{value}"
             
+            # Dataset typo fallback
+            if one_hot_col not in final_df.columns and value == "Barclays":
+                one_hot_col = f"{col}_Barlcays"
+
             if one_hot_col in final_df.columns:
                 final_df[one_hot_col] = 1
             else:
-                print(f"⚠️ Unseen category: {one_hot_col}")
+                print(f"⚠️ Unseen category input: '{one_hot_col}' (Not in MODEL_COLUMNS)")
 
-    # Scale numerical features
     final_df[SCALED_COLS] = scaler.transform(final_df[SCALED_COLS])
     
     return final_df
-
 # --- 5. API Endpoints ---
 @app.route('/', methods=['GET'])
 def hello():

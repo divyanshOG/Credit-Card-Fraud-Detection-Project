@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Credit Card Fraud Detection</title>
+    <title>Carding Guardian - Fraud Detection</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="container">
-        <h2>Fraud Detection Service</h2>
-        <p>Enter transaction details to check for fraud.</p>
+        <h2>Carding Guardian - Fraud Detection</h2>
+        <p style="text-align: center; color: #666; margin-bottom: 20px;">Enter transaction details to check for fraud.</p>
 
+        <!-- The Form -->
         <form id="fraud-form" autocomplete="off">
 
             <h3>Transaction Details</h3>
@@ -50,6 +51,7 @@
                 <select id="Type of Transaction" name="Type of Transaction" required>
                     <option value="POS">POS (Point of Sale)</option>
                     <option value="Online">Online</option>
+                    <option value="ATM">ATM</option>
                 </select>
             </div>
 
@@ -67,6 +69,7 @@
                     <option value="Gaming">Gaming</option>
                     <option value="Products">Products</option>
                     <option value="Subscription">Subscription</option>
+                    <option value="Children">Children</option>
                 </select>
             </div>
             
@@ -80,19 +83,6 @@
                     <option value="HSBC">HSBC</option>
                     <option value="Metro">Metro</option>
                     <option value="Monzo">Monzo</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="Day of Week">Day of Week:</label>
-                <select id="Day of Week" name="Day of Week" required>
-                    <option value="Monday">Monday</option>
-                    <option value="Tuesday">Tuesday</option>
-                    <option value="Wednesday">Wednesday</option>
-                    <option value="Thursday">Thursday</option>
-                    <option value="Friday">Friday</option>
-                    <option value="Saturday">Saturday</option>
-                    <option value="Sunday">Sunday</option>
                 </select>
             </div>
 
@@ -119,15 +109,17 @@
                 <input type="text" id="Shipping Address" name="Shipping Address" value="United Kingdom" required>
             </div>
             
-            <button type="submit">Check Transaction</button>
+            <button type="submit">Predict Transaction</button>
         </form>
 
+        <!-- 🛑 RESULT BOX IS OUTSIDE THE FORM -->
         <div id="result">
             <h3>Prediction Result:</h3>
-            <p id="prediction-text">---</p>
-            <p id="probability-score">---</p>
+            <p id="prediction-text">Result will appear here</p>
+            <p id="probability-score"></p>
         </div>
     </div>
+
     <script src="app.js"></script>
 </body>
 </html>
